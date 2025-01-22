@@ -25,6 +25,17 @@
               <p v-else-if="inventory>0 && inventory<=10">Almost sold out</p>
               <p v-else>Out of Stock</p>
               <p v-if="onSale">On Sale</p>
+              <!-- The v-for directive is a powerful tool in Vue.js for rendering lists of items. 
+               It helps in creating dynamic and efficient UIs by iterating over arrays or objects and rendering the corresponding HTML elements. 
+               The key attribute is crucial for maintaining performance and ensuring that the DOM updates efficiently. -->
+              <ul>
+                <li v-for="detail in details" :key="detail">{{detail}}</li>
+              </ul> 
+              
+              <div v-for="variant in variants" :key="variant.id">
+                {{variant.color}}
+              </div>
+              <div v-for="size in sizes" :key="size">{{size}}</div>
             </div>
           </div>
         </div>

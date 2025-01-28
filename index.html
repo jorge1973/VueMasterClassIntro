@@ -11,6 +11,7 @@
   <body>
     <div id="app">
       <div class="nav-bar">
+        <div class="cart">Cart ({{cart}})</div>
         <div class="product-display">
           <div class="product-container">
             <div class="product-image">
@@ -32,10 +33,12 @@
                 <li v-for="detail in details" :key="detail">{{detail}}</li>
               </ul> 
               
-              <div v-for="variant in variants" :key="variant.id">
+              <div v-for="variant in variants" :key="variant.id" @mouseover="updateImage(variant.image)" class="color-circle" :style="{backgroundColor: variant.color}">
                 {{variant.color}}
               </div>
               <div v-for="size in sizes" :key="size">{{size}}</div>
+              <button class="button" @click="addToCart">Add to Cart</button>
+              <button class="button" @click="removeFromCart">Remove From Cart</button>
             </div>
           </div>
         </div>

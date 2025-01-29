@@ -20,10 +20,12 @@
               <img :src="image" alt="product" />
             </div>
             <div class="product-info">
-              <h1>{{product}}</h1>
+              <h1>{{title}}</h1>
               <p>{{description}}</p>
-              <p v-if="inventory>10">In Stock</p>
+              <!-- <p v-if="inventory>10">In Stock</p>
               <p v-else-if="inventory>0 && inventory<=10">Almost sold out</p>
+              <p v-else>Out of Stock</p> -->
+              <p v-if="inStock">In Stock</p>
               <p v-else>Out of Stock</p>
               <p v-if="onSale">On Sale</p>
               <!-- The v-for directive is a powerful tool in Vue.js for rendering lists of items. 
@@ -33,12 +35,12 @@
                 <li v-for="detail in details" :key="detail">{{detail}}</li>
               </ul> 
               
-              <div v-for="variant in variants" :key="variant.id" @mouseover="updateImage(variant.image)" class="color-circle" :style="{backgroundColor: variant.color}">
-                {{variant.color}}
+              <div v-for="(variant, index) in variants" :key="variant.id" @mouseover="updateVariant(index)" class="color-circle" :style="{backgroundColor: variant.color}">
+                
               </div>
               <div v-for="size in sizes" :key="size">{{size}}</div>
-              <button class="button" @click="addToCart">Add to Cart</button>
-              <button class="button" @click="removeFromCart">Remove From Cart</button>
+              <button class="button" :class="{disabledButton:!inStock}" @click="addToCart" :disabled="!inStock">Add to Cart</button>
+              <button class="button" :disabled="!inStock" @click="removeFromCart" :class="{disabledButton:cart<=0}">Remove from Cart</button>
             </div>
           </div>
         </div>

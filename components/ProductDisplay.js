@@ -41,8 +41,10 @@ app.component('product-display', {
                 
               </div>
               <div v-for="size in sizes" :key="size">{{size}}</div>
-              <button class="button" :class="{disabledButton:!inStock}" @click="addToCart" :disabled="!inStock">Add to Cart</button>
-              <button class="button" :disabled="!inStock" @click="removeFromCart" :class="{disabledButton:cart<=0}">Remove from Cart</button>
+
+              <button class="button"  @click="addToCart" >Add to Cart</button>
+              <button class="button"  @click="removeFromCart" >Remove from Cart</button>
+
             </div>
           </div>
         </div>
@@ -57,7 +59,7 @@ app.component('product-display', {
             inventory: 100,
             // inStock:true,
             onSale:true,
-            cart:0,
+            // cart:0,
             variants: [
                 {id:2234, color:'green', image: './assets/images/socks_green.jpg', quantity:50},
                 {id:2235, color:'blue', image: './assets/images/socks_blue.jpg', quantity:0}
@@ -67,7 +69,7 @@ app.component('product-display', {
     },
     methods:{
         addToCart(){
-            this.cart += 1
+            this.$emit('add-to-cart',this.variants[this.selectedVariant].id)
         },
         updateImage(variantImage){
             this.image = variantImage
@@ -76,10 +78,7 @@ app.component('product-display', {
             this.selectedVariant = index
         },
         removeFromCart(){
-            if (this.cart > 0){
-                this.cart -= 1
-            }
-                
+            this.$emit('update-remove-from-cart',this.variants[this.selectedVariant].id)
         }
     },
     computed:{
